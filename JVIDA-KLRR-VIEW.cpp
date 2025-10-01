@@ -4,3 +4,5 @@
 //Liam Vedovato Lopes
 //Raul Kolaric
 //Rodrigo Ward Leite
+
+#include "JVIDA-KLRR-VIEW.h"
