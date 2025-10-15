@@ -7,12 +7,13 @@
 
 #include <windows.h>
 
-//Variaveis para os Menus
+//Variáveis globais dos menus
 char op1, op2;
 
-void apresentarMapa();
-void fclear();
-void limparTela();
-char menu1();
-char menu2();
-void regras();
+//Funcoes
+void apresentarMapa(); 
+void fclear();		   
+void limparTela();     
+char menu1();          
+char menu2();          
+void regras();         

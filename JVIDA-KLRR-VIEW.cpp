@@ -7,6 +7,7 @@
 
 #include "JVIDA-KLRR-VIEW.h"
 
+//Exibe o mapa atual
 void apresentarMapa() {
 	limparTela();
 	printf("   ");
@@ -80,6 +81,7 @@ char menu1() {
 	return op1; 
 }
 
+//Exibe o menu durante o jogo e retorna a opção escolhida
 char menu2() {
 	do {
 		limparTela();
@@ -105,6 +107,7 @@ char menu2() {
 	return op2;
 }
 
+//Mostra as regras do jogo ao jogador
 void regras() {
 	limparTela();
 	printf("\n---------------------------------------------------Regras resumidas---------------------------------------------------\n");
