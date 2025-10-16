@@ -56,19 +56,26 @@ void limparTela() {
 }
 
 //Exibe o menu principal e retorna a opção escolhida
-char menu1() {
+char menu() {
 	do {
 		limparTela();
 				
-		printf("\n-------------------MENU-------------------\n");
-		printf("| 1 - Iniciar jogo                       |\n");
-		printf("| 2 - Regras gerais do Jogo              |\n");
-		printf("| 0 - Sair do programa                   |\n");
-		printf("------------------------------------------\n");
+		printf("\n----------------------------------MENU---------------------------------\n");
+		printf("| 1 - Limpar Mapa                                                     |\n");
+		printf("| 2 - Incluir/excluir celulas vivas                                   |\n");
+		printf("| 3 - Mostrar/Esconder os mortos-vizinhos                             |\n");
+		printf("| 4 - INICIAR PROCESSO                                                |\n");
+		printf("| 5 - Apresentar as Listas                                            |\n");
+		printf("| 6 - Gravar uma geracao inicial                                      |\n");
+		printf("| 7 - Recuperar uma geracao inicial cadastrada                        |\n");
+		printf("| 8 - Limpar o cadastro de gerações iniciais cadastradas (n gerações) |\n");
+		printf("| 9 - Regras de evolução das celulas                                  |\n");
+		printf("| 0 - Sair do programa                                                |\n");
+		printf("-----------------------------------------------------------------------\n");
 		printf("Opcao selecionada: ");
-		scanf("%c", &op1);	
+		scanf("%c", &op);	
 		
-		if (op1 >= '0' && op1 <= '2') {
+		if (op >= '0' && op <= '9') {
 			break;	
 		}
 			
@@ -78,33 +85,7 @@ char menu1() {
 	} while (1);
 
 	fclear();
-	return op1; 
-}
-
-//Exibe o menu durante o jogo e retorna a opção escolhida
-char menu2() {
-	do {
-		limparTela();
-		
-		printf("\n----------------------------------------------------------\n");
-		printf("| 1 - Coordenadas dos Seres Vivos                        |\n");
-		printf("| 2 - Apresentar Mapa                                    |\n");
-		printf("| 0 - Sair (interromper o jogo voltando ao menu inicial) |\n");
-		printf("----------------------------------------------------------\n");
-		printf("Opcao selecionada: ");
-		scanf(" %c", &op2);
-		
-		if (op1 >= '0' && op1 <= '2') {
-			break;	
-		}
-		
-		printf("\n--------------OPCAO INVALIDA--------------");
-		Sleep(500);
-		fclear();
-	} while (1);
-
-	fclear();
-	return op2;
+	return op; 
 }
 
 //Mostra as regras do jogo ao jogador
@@ -122,4 +103,12 @@ void regras() {
 	printf("\nA cada geracao, as regras devem ser aplicadas para todos os seres vivos ao mesmo tempo (isto e no mesmo passo) para"); 
 	printf("\nobtermos o proximo passo ou geracao.\n\n");
 	system("pause");
+}
+
+void tempo (int seg) {
+	time_t lt1 = time(NULL), lt2 = lt1;
+	
+	while (difftime(lt2, lt1) < seg){
+		lt2 = time(NULL);	
+	}
 }

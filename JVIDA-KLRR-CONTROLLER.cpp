@@ -8,71 +8,15 @@
 #include "JVIDA-KLRR-CONTROLLER.h"
 #include "JVIDA-KLRR-VIEW.cpp"
 
-void caso1() {
-	limparTela();
-		
-	printf("Digite a dimensao desejada (de 10 a 60): ");
-	scanf("%d", &dimensao);
+void apresentarListas() {
 	
-	//Validação do tamanho do tabuleiro
-	if ((dimensao < 10) || (dimensao > 60)) {
-		printf("\n------------DIMENSAO INVALIDA!------------");
-		Sleep(500);
-		fclear();
-	}
-	
-	else {
-		//Inicializa as matrizes com células vazias
-		for (int linha = 0; linha < dimensao; linha++) {
-			for (int coluna = 0; coluna < dimensao; coluna++) {
-				matriz [linha] [coluna] = '.';
-				matrizAuxiliar [linha] [coluna] = '.';
-			}
-		}
-		
-		//Menu secundário para manipulação do tabuleiro
-		do {
-			menu2();
-		
-			switch(op2) {
-				case('1'): 
-					seresVivos();
-					break;
-			
-				case('2'):	
-					apresentarMapa();
-					break;
-		
-				case('0'):
-					limparTela();
-					break;
-			}
-		} while (op2 != '0');
-	}
 }
 
-void jogar() {
-	//Loop principal do jogo
-	do {
-		//Exibe o menu inicial
-		menu1();
+void gravarGeracao() {
 	
-		switch (op1) {
-			case('1'): 
-				caso1();
-				break;
-			
-			case('2'): 
-				regras();
-				break;
-		
-			case('0'):
-				break;
-		}
-	} while (op1 != '0');
 }
 
-void seresVivos() {
+void incluirExcluir() {
 	do {
 		limparTela();
 		
@@ -122,4 +66,98 @@ void seresVivos() {
 		
 		Sleep(500);
 	} while (1);
+}
+
+void jogar() {
+	printf("Digite a dimensao desejada (de 10 a 60): ");
+	scanf("%d", &dimensao);
+	fclear();
+	
+	//Validação do tamanho do tabuleiro
+	if ((dimensao < 10) || (dimensao > 60)) {
+		printf("\n------------DIMENSAO INVALIDA!------------");
+		Sleep(500);
+	}
+	
+	else {
+		//Inicializa as matrizes com células vazias
+		for (int linha = 0; linha < dimensao; linha++) {
+			for (int coluna = 0; coluna < dimensao; coluna++) {
+				matriz [linha] [coluna] = '.';
+				matrizAuxiliar [linha] [coluna] = '.';
+			}
+		}
+	}
+	
+	//Loop principal do jogo
+	do {
+		//Exibe o menu inicial
+		menu();
+	
+		switch (op) {
+			case('1'): 
+				limparMapa();
+				break;
+				
+			case('2'): 
+				incluirExcluir();
+				break;
+			
+			case('3'): 
+				mostrarEsconder();
+				break;
+		
+			case('4'):
+				processo();
+				break;
+			
+			case('5'): 
+				apresentarListas();
+				break;
+			
+			case('6'): 
+				gravarGeracao();
+				break;
+				
+			case('7'): 
+				recuperarGeracao();
+				break;
+			
+			case('8'): 
+				limparGeracao();
+				break;
+		
+			case('9'):
+				regras();
+				break;
+				
+			case('0'):
+				break;
+		}
+	} while (op != '0');
+}
+
+void limparMapa() {
+	for (int linha = 0; linha < dimensao; linha++) {
+		for (int coluna = 0; coluna < dimensao; coluna++) {
+			matriz [linha] [coluna] = '.';
+			matrizAuxiliar [linha] [coluna] = '.';
+		}
+	}
+}
+
+void limparGeracao() {
+	
+}
+
+void mostrarEsconder() {
+	
+}
+
+void processo() {
+	
+}
+
+void recuperarGeracao() {
+	
 }

@@ -6,14 +6,15 @@
 //Rodrigo Ward Leite
 
 #include <windows.h>
+#include <time.h>
 
 //Variáveis globais dos menus
-char op1, op2;
+char op;
 
 //Funcoes
 void apresentarMapa(); 
 void fclear();		   
 void limparTela();     
-char menu1();          
-char menu2();          
-void regras();         
+char menu();                   
+void regras();  
+void tempo();       

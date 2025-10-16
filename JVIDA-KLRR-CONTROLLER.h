@@ -8,6 +8,12 @@
 //Biblioteca padrão
 #include <stdio.h>
 
-void caso1();			//Executa a configuração inicial
+void apresentarListas();
+void gravarGeracao();
+void incluirExcluir();
 void jogar();			//Controla o fluxo principal do jogo
-void seresVivos();		//Lida com a inserção das células vivas no tabuleiro
+void limparMapa();
+void limparGeracao();
+void mostrarEsconder();
+void processo();
+void recuperarGeracao();
