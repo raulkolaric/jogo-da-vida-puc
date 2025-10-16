@@ -19,11 +19,13 @@ void gravarGeracao() {
 void incluirExcluir() {
 	do {
 		limparTela();
-		
-		printf("Coordenadas dos Seres Vivos da Geracao (0 0 para sair): ");
+		printf("-------------------------------------------------------------------");
+		printf("\nCoordenadas das Celulas Vivas da Geracao (0 0 para sair): ");
 		scanf("%d %d", &coordenadaX, &coordenadaY);
+		printf("-------------------------------------------------------------------\n");
 		
 		if ((coordenadaX == 0) && (coordenadaY == 0)) {
+			fclear();
 			break;
 		}
 		
@@ -34,6 +36,8 @@ void incluirExcluir() {
 				matriz [coordenadaX - 1] [coordenadaY - 1] = 'O';
 				matrizAuxiliar [coordenadaX - 1] [coordenadaY - 1] = 'O';
 				printf("\n-------------CELULA ADICIONADA-------------");
+				
+				apresentarMapa();
 			}
 			
 			else {
@@ -56,6 +60,8 @@ void incluirExcluir() {
 					else {
 						printf("\n-----------REMOCAO NAO REALIZADA-----------");
 					}
+					
+					apresentarMapa();
 				}	
 			}
 		}
@@ -144,6 +150,10 @@ void limparMapa() {
 			matrizAuxiliar [linha] [coluna] = '.';
 		}
 	}
+	
+	limparTela();
+	printf("\n---------------MAPA LIMPO!---------------");
+	apresentarMapa();
 }
 
 void limparGeracao() {

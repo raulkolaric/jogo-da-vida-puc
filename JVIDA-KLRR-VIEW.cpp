@@ -9,8 +9,7 @@
 
 //Exibe o mapa atual
 void apresentarMapa() {
-	limparTela();
-	printf("   ");
+	printf("\n\n   ");
 	
 	for (int colunas = 0; colunas < dimensao; colunas++) {
 		printf("%d ", colunas + 1);
@@ -37,7 +36,7 @@ void apresentarMapa() {
         printf("\n");
     }
     
-    printf("\n");
+    printf("\nGeracao: %d\n\n", geracao);
     system("pause");
 }
 
