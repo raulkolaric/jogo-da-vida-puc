@@ -97,7 +97,7 @@ void gerarVivas() {
 			int qtd = calcularVizinhos(i, j);
 			
 			if (qtd == 3) {
-				matriz[i][j] = 'O';
+				matrizAuxiliar[i][j] = 'O';
 			}
 		}
 	}
