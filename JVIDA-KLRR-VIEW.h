@@ -1,20 +1,21 @@
 //Jogo-da-Vida-VIEW.h - Projeto Jogo da Vida
-//14/10/2025 - Grupo: KLRR
+//21/10/2025 - Grupo: KLRR
 //Kauã Bezerra Brito
 //Liam Vedovato Lopes
 //Raul Kolaric
 //Rodrigo Ward Leite
 
+//Bibliotecas
 #include <windows.h>
 #include <time.h>
 
-//Variáveis globais dos menus
+//Variável global usada para armazenar a opção selecionada no menu
 char op;
 
 //Funcoes
-void apresentarMapa(); 
-void fclear();		   
-void limparTela();     
-char menu();                   
-void regras();  
-void tempo();       
+void apresentarMapa(); 		//Exibe o tabuleiro com as células
+void fclear();		   		//Limpa o buffer de entrada do teclado
+void limparTela();     		//Limpa a tela do console
+char menu();                //Mostra o menu principal e retorna a opção escolhida 
+void regras();  			//Mostra as regras do jogo ao usuário
+void tempo(int seg);       

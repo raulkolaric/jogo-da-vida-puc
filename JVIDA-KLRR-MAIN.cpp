@@ -1,5 +1,5 @@
 //Jogo-da-Vida-MAIN.cpp - Projeto Jogo da Vida
-//14/10/2025 - Grupo: KLRR
+//21/10/2025 - Grupo: KLRR
 //Kauã Bezerra Brito
 //Liam Vedovato Lopes
 //Raul Kolaric

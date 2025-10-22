@@ -1,5 +1,5 @@
 //Jogo-da-Vida-CONTROLLER.h - Projeto Jogo da Vida
-//14/10/2025 - Grupo: KLRR
+//21/10/2025 - Grupo: KLRR
 //Kauã Bezerra Brito
 //Liam Vedovato Lopes
 //Raul Kolaric
@@ -8,12 +8,13 @@
 //Biblioteca padrão
 #include <stdio.h>
 
+//Funcoes
 void apresentarListas();
 void gravarGeracao();
-void incluirExcluir();
-void jogar();			//Controla o fluxo principal do jogo
-void limparMapa();
+void incluirExcluir(); 		//Permite incluir ou excluir células vivas manualmente
+void jogar();				//Controla o fluxo principal do jogo
+void limparMapa();			//Limpa completamente o mapa atual
 void limparGeracao();
-void mostrarEsconder();
+void mostrarEsconder();		//Mostra ou esconde as células vizinhas mortas
 void processo();
 void recuperarGeracao();
