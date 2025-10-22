@@ -12,9 +12,97 @@ void apresentarListas() {
 	
 }
 
+int calcularVizinhos(int linha, int coluna) {
+	int qtd = 0;
+	
+	//3 superiores
+	if (linha - 1 >= 0 && coluna - 1 >= 0){
+		if (matriz[linha - 1][coluna - 1] == 'O'){
+			qtd++;
+		}
+	}
+	
+	if (linha - 1 >= 0 && coluna >= 0){
+		if (matriz[linha - 1][coluna] == 'O'){
+			qtd++;
+		}
+	}
+	
+	if (linha - 1 >= 0 && coluna + 1 < dimensao){
+		if (matriz[linha - 1][coluna + 1] == 'O'){
+			qtd++;
+		}
+	}
+		
+	//2 laterais
+	if (linha >= 0 && coluna - 1 >= 0){
+		if (matriz[linha][coluna - 1] == 'O'){
+			qtd++;
+		}
+	}
+	
+	if (linha >= 0 && coluna + 1 < dimensao){
+		if (matriz[linha][coluna + 1] == 'O'){
+			qtd++;
+		}
+	}
+		
+	//3 inferiores
+	if (linha + 1 < dimensao && coluna - 1 >= 0){
+		if (matriz[linha - 1][coluna - 1] == 'O'){
+			qtd++;
+		}
+	}
+	
+	if (linha + 1 < dimensao && coluna >= 0){
+		if (matriz[linha - 1][coluna] == 'O'){
+			qtd++;
+		}
+	}
+	
+	if (linha + 1 < dimensao && coluna + 1 < dimensao){
+		if (matriz[linha - 1][coluna + 1] == 'O'){
+			qtd++;
+		}
+	}
+	
+	return qtd;
+}
+
+
 void gravarGeracao() {
 	
 }
+
+void gerarMortas() {
+	
+	for (int i = 0; i < dimensao; i++) {
+		for (int j = 0; j < dimensao; j++) {
+			int qtd = calcularVizinhos(i, j);
+			
+			if (qtd <= 1) {
+				matriz[i][j] = '.';
+			}
+			if (qtd >= 4) {
+				matriz[i][j] = '.';
+			}
+		}
+	}
+}
+
+void gerarVivas() {
+	
+	for (int i = 0; i < dimensao; i++) {
+		for (int j = 0; j < dimensao; j++) {
+			int qtd = calcularVizinhos(i, j);
+			
+			if (qtd == 3) {
+				matriz[i][j] = 'O';
+			}
+		}
+	}
+}	
+
 
 void incluirExcluir() {
 	do {
@@ -73,6 +161,7 @@ void incluirExcluir() {
 		Sleep(500);
 	} while (1);
 }
+
 
 void jogar() {
 	printf("Digite a dimensao desejada (de 10 a 60): ");
@@ -190,6 +279,15 @@ void limparMapa() {
 void limparGeracao() {
 	
 }
+
+void limparMatrizAux() {
+	for (int i = 0; i < dimensao ; i++){
+		for (int j = 0; j < dimensao ; j++){
+			matrizAuxiliar[i][j] = '.';
+		}
+	}
+}
+
 
 void mostrarEsconder() {
 	//Se a opção de mostrar células vizinhas-mortas estiver ativada
