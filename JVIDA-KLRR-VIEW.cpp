@@ -39,7 +39,8 @@ void apresentarMapa() {
     }
     
     printf("\nGeracao: %d\n\n", geracao);
-    system("pause");
+    //system("pause");
+    
 }
 
 //Limpa o buffer de entrada

@@ -12,6 +12,23 @@ void apresentarListas() {
 	
 }
 
+/*void avancar() {
+	//flag
+	int flag = 0;
+	printf("Avancar manual ou automaticamente?\n[0] Manual\n[1] Automatico\n");
+	scanf("%d", &flag);
+	
+	//manual 0
+	if (flag == 0) {
+		
+	}
+	//automatico 1
+	if (flag == 1){
+		
+	}
+}*/
+
+
 int calcularVizinhos(int linha, int coluna) {
 	int qtd = 0;
 	
@@ -81,10 +98,10 @@ void gerarMortas() {
 			int qtd = calcularVizinhos(i, j);
 			
 			if (qtd <= 1) {
-				matriz[i][j] = '.';
+				matrizAuxiliar[i][j] = '.';
 			}
 			if (qtd >= 4) {
-				matriz[i][j] = '.';
+				matrizAuxiliar[i][j] = '.';
 			}
 		}
 	}
@@ -106,7 +123,8 @@ void gerarVivas() {
 
 void incluirExcluir() {
 	do {
-		limparTela();
+		apresentarMapa();
+		//limparTela();
 		printf("-------------------------------------------------------------------");
 		printf("\nCoordenadas das Celulas Vivas da Geracao (0 0 para sair): ");
 		scanf("%d %d", &coordenadaX, &coordenadaY);
@@ -125,7 +143,9 @@ void incluirExcluir() {
 				matrizAuxiliar [coordenadaX - 1] [coordenadaY - 1] = 'O';
 				printf("\n-------------CELULA ADICIONADA-------------");
 				
-				apresentarMapa();
+				//apresentarMapa();
+				Sleep(300);
+    			limparTela();
 			}
 			
 			else if (matriz [coordenadaX - 1] [coordenadaY - 1] == 'O') {
@@ -148,7 +168,7 @@ void incluirExcluir() {
 					else {
 						printf("\n-----------REMOCAO NAO REALIZADA-----------");
 					}
-					
+				
 					apresentarMapa();
 				}	
 			}
@@ -195,6 +215,8 @@ void jogar() {
 				break;
 				
 			case('2'): 
+				limparTela();
+				//apresentarMapa();
 				incluirExcluir();
 				break;
 			
@@ -288,6 +310,15 @@ void limparMatrizAux() {
 	}
 }
 
+void limparMatriz() {
+	for (int i = 0; i < dimensao ; i++){
+		for (int j = 0; j < dimensao ; j++){
+			matriz[i][j] = '.';
+		}
+	}
+}
+
+
 
 void mostrarEsconder() {
 	//Se a opção de mostrar células vizinhas-mortas estiver ativada
@@ -335,9 +366,68 @@ void mostrarEsconder() {
 }
 
 void processo() {
-	
+	//flag
+	int flag = 0;
+	printf("Avancar manual ou automaticamente?\n[0] Manual\n[1] Automatico\n");
+	do {
+		scanf("%d", &flag);
+		if(flag != 0 || flag !=1) {
+			printf("Opção invalida.");
+		}
+	} while(flag != 0 || flag !=1);
+		
+	//manual 0
+	if (flag == 0) {
+		
+	}
+	//automatico 1
+	if (flag == 1){
+		int loop;
+		printf("Quantas geracoes?\n");
+		scanf("%d", &loop);
+		
+		while(loop>0){
+			proximaGeracao();
+			loop = loop - 1;
+		}
+
+	}
+}
+
+void proximaGeracao() {
+	limparMatrizAux();
+	gerarMortas();
+	gerarVivas();
+	limparMatriz();	
+	//copia matriz auxiliar na matriz atual
+	for (int i = 0; i < dimensao ; i++){
+		for (int j = 0; j < dimensao ; j++){
+			matriz[i][j] = matrizAuxiliar[i][j];
+		}
+	}
+	apresentarMapa();
 }
 
 void recuperarGeracao() {
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
