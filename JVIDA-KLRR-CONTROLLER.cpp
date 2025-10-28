@@ -97,34 +97,40 @@ int existemVivos() {
     return 0; 
 }
 
-void gerarMortas() {
-	
+//void gerarMortas() {
+//	
+//	for (int i = 0; i < dimensao; i++) {
+//		for (int j = 0; j < dimensao; j++) {
+//			int qtd = calcularVizinhos(i, j);
+//			
+//			if (qtd <= 1) {
+//				matrizAuxiliar[i][j] = '.';
+//			}
+//			if (qtd >= 4) {
+//				matrizAuxiliar[i][j] = '.';
+//			}
+//		}
+//	}
+//}
+
+void gerarVivas() {
 	for (int i = 0; i < dimensao; i++) {
 		for (int j = 0; j < dimensao; j++) {
 			int qtd = calcularVizinhos(i, j);
 			
-			if (qtd <= 1) {
-				matrizAuxiliar[i][j] = '.';
+			if (matriz[i][j] == 'O') {
+				if (qtd == 2 || qtd == 3) {
+					matrizAuxiliar[i][j] = 'O';
+				}
 			}
-			if (qtd >= 4) {
-				matrizAuxiliar[i][j] = '.';
+			else {
+				if (qtd == 3) {
+					matrizAuxiliar[i][j] = 'O';
+				}
 			}
 		}
 	}
 }
-
-void gerarVivas() {
-	
-	for (int i = 0; i < dimensao; i++) {
-		for (int j = 0; j < dimensao; j++) {
-			int qtd = calcularVizinhos(i, j);
-			
-			if (qtd == 3) {
-				matrizAuxiliar[i][j] = 'O';
-			}
-		}
-	}
-}	
 
 void gravarGeracao() {
 	
@@ -372,23 +378,22 @@ void mostrarEsconder() {
 }
 
 void processo() {
-	//flag
 	int flag = 0;
 	printf("Avancar manual ou automaticamente?\n[0] Manual\n[1] Automatico\n");
 	do {
 		scanf("%d", &flag);
 		if(flag != 0 && flag !=1) {
-			printf("Opção invalida.\n");
+			printf("Opcao invalida.\n");
 		}
 	} while(flag != 0 && flag !=1);
 		
-	//manual 0
 	if (flag == 0) {
 		int opcaoManual = -1;
 		apresentarMapa(); 
 		do {
 			if (existemVivos() == 0) {
 				printf("\nNao ha mais celulas vivas. Fim da simulacao manual.\n");
+				system("pause");
 				break;
 			}
 
@@ -404,35 +409,39 @@ void processo() {
 
 		} while (opcaoManual != 0);
 	}
-	//automatico 1
+	
 	if (flag == 1){
 		int loop;
 		printf("Quantas geracoes?\n");
 		scanf("%d", &loop);
 		
-		while(loop>0){
+		apresentarMapa();
+		
+		while(loop > 0){
 			if (existemVivos() == 0) {
 				printf("\nNao ha mais celulas vivas. Fim da simulacao automatica.\n");
+				system("pause");
 				break;
 			}
+			tempo(1);
 			proximaGeracao();
-			loop = loop - 1;
+			loop--;
 		}
-
+		system("pause");
 	}
 }
 
 void proximaGeracao() {
 	limparMatrizAux();
-	gerarMortas();
 	gerarVivas();
-	limparMatriz();	
-	//copia matriz auxiliar na matriz atual
-	for (int i = 0; i < dimensao ; i++){
-		for (int j = 0; j < dimensao ; j++){
+	
+	for (int i = 0; i < dimensao; i++) {
+		for (int j = 0; j < dimensao; j++) {
 			matriz[i][j] = matrizAuxiliar[i][j];
 		}
 	}
+	
+	geracao++;
 	apresentarMapa();
 }
 
