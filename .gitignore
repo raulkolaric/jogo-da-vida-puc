@@ -1,0 +1,11 @@
+# Ignore zip archives
+*.zip
+
+# Ignore VS Code user/workspace config
+.vscode/
+*.code-workspace
+
+# Common OS clutter (optional)
+.DS_Store
+Thumbs.db
+desktop.ini
