@@ -412,22 +412,56 @@ void processo() {
 	
 	if (flag == 1){
 		int loop;
+		int velocidade;
+		
 		printf("Quantas geracoes?\n");
 		scanf("%d", &loop);
 		
+		printf("Defina a velocidade de sucessao (em segundos):\n");
+		printf("[0] Passo-a-passo (aperte ENTER para avancar)\n");
+		printf("[1-10] Velocidade automatica (segundos entre geracoes)\n");
+		printf("Velocidade: ");
+		scanf("%d", &velocidade);
+		
+		if (velocidade < 0 || velocidade > 10) {
+			printf("Velocidade invalida. Usando velocidade padrao: 1 segundo.\n");
+			velocidade = 1;
+			Sleep(1000);
+		}
+		
 		apresentarMapa();
 		
-		while(loop > 0){
-			if (existemVivos() == 0) {
-				printf("\nNao ha mais celulas vivas. Fim da simulacao automatica.\n");
-				system("pause");
-				break;
+		if (velocidade == 0) {
+			while(loop > 0){
+				if (existemVivos() == 0) {
+					printf("\nNao ha mais celulas vivas. Fim da simulacao automatica.\n");
+					system("pause");
+					break;
+				}
+				
+				printf("\n[Pressione ENTER para a proxima geracao]\n");
+				fclear();
+				getchar();
+				
+				proximaGeracao();
+				loop--;
 			}
-			tempo(1);
-			proximaGeracao();
-			loop--;
+			system("pause");
 		}
-		system("pause");
+		else {
+			while(loop > 0){
+				if (existemVivos() == 0) {
+					printf("\nNao ha mais celulas vivas. Fim da simulacao automatica.\n");
+					system("pause");
+					break;
+				}
+				
+				tempo(velocidade);
+				proximaGeracao();
+				loop--;
+			}
+			system("pause");
+		}
 	}
 }
 
