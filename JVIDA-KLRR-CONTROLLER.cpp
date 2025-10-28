@@ -1,5 +1,5 @@
 //Jogo-da-Vida-CONTROLLER.cpp - Projeto Jogo da Vida
-//21/10/2025 - Grupo: KLRR
+//28/10/2025 - Grupo: KLRR
 //Kauã Bezerra Brito
 //Liam Vedovato Lopes
 //Raul Kolaric
@@ -33,52 +33,52 @@ int calcularVizinhos(int linha, int coluna) {
 	int qtd = 0;
 	
 	//3 superiores
-	if (linha - 1 >= 0 && coluna - 1 >= 0){
-		if (matriz[linha - 1][coluna - 1] == 'O'){
+	if (linha - 1 >= 0 && coluna - 1 >= 0) {
+		if (matriz [linha - 1] [coluna - 1] == 'O') {
 			qtd++;
 		}
 	}
 	
-	if (linha - 1 >= 0 && coluna >= 0){
-		if (matriz[linha - 1][coluna] == 'O'){
+	if (linha - 1 >= 0 && coluna >= 0) {
+		if (matriz [linha - 1] [coluna] == 'O') {
 			qtd++;
 		}
 	}
 	
-	if (linha - 1 >= 0 && coluna + 1 < dimensao){
-		if (matriz[linha - 1][coluna + 1] == 'O'){
+	if (linha - 1 >= 0 && coluna + 1 < dimensao) {
+		if (matriz [linha - 1] [coluna + 1] == 'O') {
 			qtd++;
 		}
 	}
 		
 	//2 laterais
-	if (linha >= 0 && coluna - 1 >= 0){
-		if (matriz[linha][coluna - 1] == 'O'){
+	if (linha >= 0 && coluna - 1 >= 0) {
+		if (matriz [linha] [coluna - 1] == 'O') {
 			qtd++;
 		}
 	}
 	
-	if (linha >= 0 && coluna + 1 < dimensao){
-		if (matriz[linha][coluna + 1] == 'O'){
+	if (linha >= 0 && coluna + 1 < dimensao) {
+		if (matriz [linha] [coluna + 1] == 'O') {
 			qtd++;
 		}
 	}
 		
 	//3 inferiores
-	if (linha + 1 < dimensao && coluna - 1 >= 0){
-		if (matriz[linha + 1][coluna - 1] == 'O'){
+	if (linha + 1 < dimensao && coluna - 1 >= 0) {
+		if (matriz [linha + 1] [coluna - 1] == 'O') {
 			qtd++;
 		}
 	}
 	
-	if (linha + 1 < dimensao && coluna >= 0){
-		if (matriz[linha + 1][coluna] == 'O'){
+	if (linha + 1 < dimensao && coluna >= 0) {
+		if (matriz [linha + 1] [coluna] == 'O') {
 			qtd++;
 		}
 	}
 	
-	if (linha + 1 < dimensao && coluna + 1 < dimensao){
-		if (matriz[linha + 1][coluna + 1] == 'O'){
+	if (linha + 1 < dimensao && coluna + 1 < dimensao) {
+		if (matriz [linha + 1] [coluna + 1] == 'O') {
 			qtd++;
 		}
 	}
@@ -89,16 +89,16 @@ int calcularVizinhos(int linha, int coluna) {
 int existemVivos() {
     for (int i = 0; i < dimensao; i++) {
         for (int j = 0; j < dimensao; j++) {
-            if (matriz[i][j] == 'O') {
+            if (matriz [i] [j] == 'O') {
                 return 1; 
             }
         }
     }
+    
     return 0; 
 }
 
 //void gerarMortas() {
-//	
 //	for (int i = 0; i < dimensao; i++) {
 //		for (int j = 0; j < dimensao; j++) {
 //			int qtd = calcularVizinhos(i, j);
@@ -118,14 +118,14 @@ void gerarVivas() {
 		for (int j = 0; j < dimensao; j++) {
 			int qtd = calcularVizinhos(i, j);
 			
-			if (matriz[i][j] == 'O') {
+			if (matriz [i] [j] == 'O') {
 				if (qtd == 2 || qtd == 3) {
-					matrizAuxiliar[i][j] = 'O';
+					matrizAuxiliar [i] [j] = 'O';
 				}
 			}
 			else {
 				if (qtd == 3) {
-					matrizAuxiliar[i][j] = 'O';
+					matrizAuxiliar [i] [j] = 'O';
 				}
 			}
 		}
@@ -139,8 +139,8 @@ void gravarGeracao() {
 void incluirExcluir() {
 	do {
 		apresentarMapa();
-		//limparTela();
-		printf("-------------------------------------------------------------------");
+		
+		printf("\n-------------------------------------------------------------------");
 		printf("\nCoordenadas das Celulas Vivas da Geracao (0 0 para sair): ");
 		scanf("%d %d", &coordenadaX, &coordenadaY);
 		printf("-------------------------------------------------------------------\n");
@@ -157,14 +157,10 @@ void incluirExcluir() {
 				matriz [coordenadaX - 1] [coordenadaY - 1] = 'O';
 				matrizAuxiliar [coordenadaX - 1] [coordenadaY - 1] = 'O';
 				printf("\n-------------CELULA ADICIONADA-------------");
-				
-				//apresentarMapa();
-				Sleep(300);
-    			limparTela();
 			}
 			
 			else if (matriz [coordenadaX - 1] [coordenadaY - 1] == 'O') {
-				// Caso o espaço já esteja ocupado, pergunta se o jogador quer remover
+				//Caso o espaço já esteja ocupado, pergunta se o jogador quer remover
 				fclear();
 				printf("\nDeseja excluir do mapa? (S/N): ");
 				scanf(" %c", &excluir);
@@ -183,8 +179,6 @@ void incluirExcluir() {
 					else {
 						printf("\n-----------REMOCAO NAO REALIZADA-----------");
 					}
-				
-					apresentarMapa();
 				}	
 			}
 		}
@@ -194,29 +188,38 @@ void incluirExcluir() {
 		}
 		
 		Sleep(500);
+		limparTela();
 	} while (1);
 }
 
 void jogar() {
-	printf("Digite a dimensao desejada (de 10 a 60): ");
-	scanf("%d", &dimensao);
-	fclear();
-	
-	//Validação do tamanho do tabuleiro
-	if ((dimensao < 10) || (dimensao > 60)) {
-		printf("\n------------DIMENSAO INVALIDA!------------");
+	do {
+		printf("---------------------------------------------");
+		printf("\nDigite a dimensao desejada (de 10 a 60): ");
+		scanf("%d", &dimensao);
+		fclear();
+		printf("---------------------------------------------");
 		Sleep(500);
-	}
-	
-	else {
-		//Inicializa as matrizes com células vazias
-		for (int linha = 0; linha < dimensao; linha++) {
-			for (int coluna = 0; coluna < dimensao; coluna++) {
-				matriz [linha] [coluna] = '.';
-				matrizAuxiliar [linha] [coluna] = '.';
-			}
+		
+		//Validação do tamanho do tabuleiro
+		if ((dimensao < 10) || (dimensao > 60)) {
+			printf("\n------------DIMENSAO INVALIDA!------------");
+			Sleep(500);
+			limparTela();
 		}
-	}
+		
+		else {
+			//Inicializa as matrizes com células vazias
+			for (int linha = 0; linha < dimensao; linha++) {
+				for (int coluna = 0; coluna < dimensao; coluna++) {
+					matriz [linha] [coluna] = '.';
+					matrizAuxiliar [linha] [coluna] = '.';
+				}
+			}
+			
+			break;
+		}
+	} while (1);
 	
 	//Loop principal do jogo
 	do {
@@ -239,21 +242,24 @@ void jogar() {
 				
 				do {
 					limparTela();
-					printf("-------------------------------------------------------------------");
-					printf("\nDeseja que sejam apresentadas as celulas vizinhas-mortas? (S/N): ");
+					apresentarMapa();
+					printf("\n-----------------------------------------------------------------------------------------");
+					printf("\nDeseja que sejam apresentadas as celulas vizinhas-mortas? (S/N) (Digite 0 para sair): ");
 					scanf(" %c", &simNao);
 					fclear();
 					simNao = toupper(simNao);
-					printf("-------------------------------------------------------------------");
+					printf("-----------------------------------------------------------------------------------------");
 					
 					//Verifica a resposta do usuário
 					if (simNao == 'S') {
 						mostrar = 1;
-						break;
 					}
 					
 					else if (simNao == 'N') {
 						mostrar = 0;
+					}
+					
+					else if (simNao == '0') {
 						break;
 					}
 					
@@ -263,9 +269,7 @@ void jogar() {
 					
 					Sleep(500);
 				} while (1);
-				
-				apresentarMapa();
-				
+								
 				break;
 		
 			case('4'):
@@ -312,14 +316,15 @@ void limparMapa() {
 	}
 	
 	limparTela();
-	printf("\n---------------MAPA LIMPO!---------------");
 	apresentarMapa();
+	printf("\n---------------MAPA LIMPO!---------------\n");
+	Sleep(1000);
 }
 
 void limparMatriz() {
 	for (int i = 0; i < dimensao ; i++){
 		for (int j = 0; j < dimensao ; j++){
-			matriz[i][j] = '.';
+			matriz [i] [j] = '.';
 		}
 	}
 }
@@ -327,7 +332,7 @@ void limparMatriz() {
 void limparMatrizAux() {
 	for (int i = 0; i < dimensao ; i++){
 		for (int j = 0; j < dimensao ; j++){
-			matrizAuxiliar[i][j] = '.';
+			matrizAuxiliar [i] [j] = '.';
 		}
 	}
 }
@@ -379,80 +384,123 @@ void mostrarEsconder() {
 
 void processo() {
 	int flag = 0;
-	printf("Avancar manual ou automaticamente?\n[0] Manual\n[1] Automatico\n");
+	
 	do {
+		limparTela();
+		
+		printf("-------------------------------------");
+		printf("\nAvancar manual ou automaticamente? ");
+		printf("\n0 - Manual | 1 - Automatico: ");
 		scanf("%d", &flag);
-		if(flag != 0 && flag !=1) {
-			printf("Opcao invalida.\n");
+		printf("-------------------------------------");
+		
+		if (flag != 0 && flag !=1) {
+			printf("\n\n--------------OPCAO INVALIDA--------------");
 		}
-	} while(flag != 0 && flag !=1);
+		
+		else {
+			break;
+		}
+		
+		Sleep(500);
+		fclear();
+	} while(1);
 		
 	if (flag == 0) {
 		int opcaoManual = -1;
+		printf("\n");
 		apresentarMapa(); 
+		
 		do {
 			if (existemVivos() == 0) {
-				printf("\nNao ha mais celulas vivas. Fim da simulacao manual.\n");
+				printf("\n------------------------------------------");
+				printf("\n0 CELULAS VIVAS - FIM DA SIMULACAO MANUAL");
+				printf("\n------------------------------------------\n\n");
 				system("pause");
 				break;
 			}
-
-			printf("\n--- Geracao Manual ---\n");
-			printf("[1] Proxima Geracao\n");
-			printf("[0] Sair do modo manual\n");
-			printf("Opcao: ");
+			
+			printf("\n--------------GERACAO MANUAL--------------");
+			printf("\n| 1 - Proxima Geracao                    |");
+			printf("\n| 0 - Sair do modo manual                |");
+			printf("\n------------------------------------------");
+			printf("\nOpcao selecionada: ");
 			scanf("%d", &opcaoManual);
+			fclear();
 
 			if (opcaoManual == 1) {
+				limparTela();
 				proximaGeracao();
 			}
-
-		} while (opcaoManual != 0);
+			
+			else if (opcaoManual == 0) {
+				break;
+			}
+			
+			else {
+				printf("\n--------------OPCAO INVALIDA--------------");
+				Sleep(500);
+				limparTela();
+				apresentarMapa();
+			}
+		} while (1);
 	}
 	
-	if (flag == 1){
+	if (flag == 1) {
 		int loop;
 		int velocidade;
 		
-		printf("Quantas geracoes?\n");
+		limparTela();
+		printf("-----------------------------------------------------------");
+		printf("\nQuantas geracoes?: ");
 		scanf("%d", &loop);
+		fclear();
 		
-		printf("Defina a velocidade de sucessao (em segundos):\n");
-		printf("[0] Passo-a-passo (aperte ENTER para avancar)\n");
-		printf("[1-10] Velocidade automatica (segundos entre geracoes)\n");
-		printf("Velocidade: ");
+		printf("\nDefina a velocidade de sucessao (em segundos):");
+		printf("\n0 - Passo-a-passo (aperte ENTER para avancar)");
+		printf("\n1 a 10 - Velocidade automatica (segundos entre geracoes)");
+		printf("\nVelocidade: ");
 		scanf("%d", &velocidade);
+		fclear();
+		printf("-----------------------------------------------------------");
 		
 		if (velocidade < 0 || velocidade > 10) {
-			printf("Velocidade invalida. Usando velocidade padrao: 1 segundo.\n");
+			printf("\n\n--------------OPCAO INVALIDA--------------");
+			printf("\n\nUsando velocidade padrao: 1 segundo.");
 			velocidade = 1;
 			Sleep(1000);
 		}
 		
+		limparTela();
 		apresentarMapa();
 		
 		if (velocidade == 0) {
-			while(loop > 0){
+			while (loop > 0) {
+				limparTela();
+				
 				if (existemVivos() == 0) {
-					printf("\nNao ha mais celulas vivas. Fim da simulacao automatica.\n");
-					system("pause");
+					printf("\n----------------------------------------------");
+					printf("\n0 CELULAS VIVAS - FIM DA SIMULACAO AUTOMATICA");
+					printf("\n----------------------------------------------\n\n");
 					break;
 				}
 				
-				printf("\n[Pressione ENTER para a proxima geracao]\n");
-				fclear();
+				printf("\nPressione ENTER para a proxima geracao\n");
 				getchar();
 				
 				proximaGeracao();
 				loop--;
 			}
+			
 			system("pause");
 		}
+		
 		else {
-			while(loop > 0){
+			while (loop > 0) {
 				if (existemVivos() == 0) {
-					printf("\nNao ha mais celulas vivas. Fim da simulacao automatica.\n");
-					system("pause");
+					printf("\n----------------------------------------------");
+					printf("\n0 CELULAS VIVAS - FIM DA SIMULACAO AUTOMATICA");
+					printf("\n----------------------------------------------\n\n");
 					break;
 				}
 				
@@ -482,5 +530,3 @@ void proximaGeracao() {
 void recuperarGeracao() {
 	
 }
-
-

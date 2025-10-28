@@ -1,5 +1,5 @@
 //Jogo-da-Vida-VIEW.cpp - Projeto Jogo da Vida
-//21/10/2025 - Grupo: KLRR
+//28/10/2025 - Grupo: KLRR
 //Kauã Bezerra Brito
 //Liam Vedovato Lopes
 //Raul Kolaric
@@ -11,7 +11,7 @@
 void apresentarMapa() {
 	mostrarEsconder();			//Atualiza os '+' se a opção "mostrar vizinhos" estiver ativada
 	
-	printf("\n\n   ");
+	printf("\n   ");
 	
 	for (int colunas = 0; colunas < dimensao; colunas++) {
 		printf("%d ", colunas + 1);
@@ -38,9 +38,8 @@ void apresentarMapa() {
         printf("\n");
     }
     
-    printf("\nGeracao: %d\n\n", geracao);
+    printf("\nGeracao: %d\n", geracao);
     //system("pause");
-    
 }
 
 //Limpa o buffer de entrada
