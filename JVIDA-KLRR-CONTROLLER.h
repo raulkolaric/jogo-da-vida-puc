@@ -10,10 +10,10 @@
 
 //Funcoes
 void apresentarListas();
-void avancar();
+//void avancar();
 int calcularVizinhos(int linha, int coluna);
 int existemVivos();
-void gerarMortas();
+//void gerarMortas();
 void gerarVivas();
 void gravarGeracao();
 void incluirExcluir(); 		//Permite incluir ou excluir células vivas manualmente
