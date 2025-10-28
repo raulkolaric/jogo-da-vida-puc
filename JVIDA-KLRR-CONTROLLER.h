@@ -12,16 +12,18 @@
 void apresentarListas();
 void avancar();
 int calcularVizinhos(int linha, int coluna);
-void gravarGeracao();
-void incluirExcluir(); 		//Permite incluir ou excluir células vivas manualmente
+int existemVivos();
 void gerarMortas();
 void gerarVivas();
+void gravarGeracao();
+void incluirExcluir(); 		//Permite incluir ou excluir células vivas manualmente
 void jogar();				//Controla o fluxo principal do jogo
-void limparMapa();			//Limpa completamente o mapa atual
-void limparMatrizAux();
-void limparMatriz();
 void limparGeracao();
+void limparMapa();			//Limpa completamente o mapa atual
+void limparMatriz();
+void limparMatrizAux();
 void mostrarEsconder();		//Mostra ou esconde as células vizinhas mortas
 void processo();
 void proximaGeracao();
 void recuperarGeracao();
+
