@@ -8,6 +8,174 @@
 #include "JVIDA-KLRR-CONTROLLER.h"
 #include "JVIDA-KLRR-VIEW.cpp"
 
+//Inclui uma celula na lista de vivos
+void carregaVivo(int ii, int jj) {
+	TipoCel *aux = (TipoCel *) malloc(sizeof(TipoCel));
+	
+	if (aux == NULL) {
+		printf("Sem espaco na memoria para inclusao de celula viva\n");
+		return;
+	}
+	
+	aux->lin = ii;
+	aux->col = jj;
+	
+	if (totvivo == 0) {
+		pvivo = aux;
+		pvivo->next = NULL;
+	}
+	else {
+		aux->next = pvivo;
+		pvivo = aux;
+	}
+	
+	totvivo++;
+}
+
+//Inclui uma celula na lista de mortos-vizinhos
+void carregaMorto(int ii, int jj) {
+	TipoCel *aux = (TipoCel *) malloc(sizeof(TipoCel));
+	
+	if (aux == NULL) {
+		printf("Sem espaco na memoria para inclusao de celula morta-vizinha\n");
+		return;
+	}
+	
+	aux->lin = ii;
+	aux->col = jj;
+	
+	if (totmorto == 0) {
+		pmorto = aux;
+		pmorto->next = NULL;
+	}
+	else {
+		aux->next = pmorto;
+		pmorto = aux;
+	}
+	
+	totmorto++;
+}
+
+//Inclui uma celula na lista de vivos da proxima geracao
+void carregaVivoprox(int ii, int jj) {
+	TipoCel *aux = (TipoCel *) malloc(sizeof(TipoCel));
+	
+	if (aux == NULL) {
+		printf("Sem espaco na memoria para inclusao de celula viva proxima geracao\n");
+		return;
+	}
+	
+	aux->lin = ii;
+	aux->col = jj;
+	
+	if (totvivoprox == 0) {
+		pvivoprox = aux;
+		pvivoprox->next = NULL;
+	}
+	else {
+		aux->next = pvivoprox;
+		pvivoprox = aux;
+	}
+	
+	totvivoprox++;
+}
+
+//Mostra todas as celulas da lista de vivos
+void mostraLvivo() {
+	TipoCel *aux = pvivo;
+	
+	printf("Lista de celulas vivas (%d): ", totvivo);
+	
+	if (totvivo > 0) {
+		while (aux->next != NULL) {
+			printf("(%d,%d) ", aux->lin + 1, aux->col + 1);
+			aux = aux->next;
+		}
+		printf("(%d,%d)", aux->lin + 1, aux->col + 1);
+	}
+	
+	printf("\n");
+}
+
+//Mostra todas as celulas da lista de mortos-vizinhos
+void mostraLmorto() {
+	TipoCel *aux = pmorto;
+	
+	printf("Lista de celulas mortas-vizinhas (%d): ", totmorto);
+	
+	if (totmorto > 0) {
+		while (aux->next != NULL) {
+			printf("(%d,%d) ", aux->lin + 1, aux->col + 1);
+			aux = aux->next;
+		}
+		printf("(%d,%d)", aux->lin + 1, aux->col + 1);
+	}
+	
+	printf("\n");
+}
+
+//Mostra todas as celulas da lista de vivos da proxima geracao
+void mostraLvivoprox() {
+	TipoCel *aux = pvivoprox;
+	
+	printf("Lista de celulas vivas proxima geracao (%d): ", totvivoprox);
+	
+	if (totvivoprox > 0) {
+		while (aux->next != NULL) {
+			printf("(%d,%d) ", aux->lin + 1, aux->col + 1);
+			aux = aux->next;
+		}
+		printf("(%d,%d)", aux->lin + 1, aux->col + 1);
+	}
+	
+	printf("\n");
+}
+
+//Limpa completamente a lista de vivos
+void limpaLvivo() {
+	TipoCel *aux = pvivo;
+	TipoCel *prox;
+	
+	while (aux != NULL) {
+		prox = aux->next;
+		free(aux);
+		aux = prox;
+	}
+	
+	pvivo = NULL;
+	totvivo = 0;
+}
+
+//Limpa completamente a lista de mortos-vizinhos
+void limpaLmorto() {
+	TipoCel *aux = pmorto;
+	TipoCel *prox;
+	
+	while (aux != NULL) {
+		prox = aux->next;
+		free(aux);
+		aux = prox;
+	}
+	
+	pmorto = NULL;
+	totmorto = 0;
+}
+
+//Limpa completamente a lista de vivos da proxima geracao
+void limpaLvivoprox() {
+	TipoCel *aux = pvivoprox;
+	TipoCel *prox;
+	
+	while (aux != NULL) {
+		prox = aux->next;
+		free(aux);
+		aux = prox;
+	}
+	
+	pvivoprox = NULL;
+	totvivoprox = 0;
+}
+
 void apresentarListas() {
 	
 }

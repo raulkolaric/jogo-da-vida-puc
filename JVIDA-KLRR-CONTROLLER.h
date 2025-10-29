@@ -8,6 +8,17 @@
 //Biblioteca padrão
 #include <stdio.h>
 
+//Funcoes de manipulacao de listas
+void carregaVivo(int ii, int jj);
+void carregaMorto(int ii, int jj);
+void carregaVivoprox(int ii, int jj);
+void mostraLvivo();
+void mostraLmorto();
+void mostraLvivoprox();
+void limpaLvivo();
+void limpaLmorto();
+void limpaLvivoprox();
+
 //Funcoes
 void apresentarListas();
 //void avancar();
