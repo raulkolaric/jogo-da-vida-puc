@@ -293,21 +293,28 @@ int existemVivos() {
 //}
 
 void gerarVivas() {
-	for (int i = 0; i < dimensao; i++) {
-		for (int j = 0; j < dimensao; j++) {
-			int qtd = calcularVizinhos(i, j);
-			
-			if (matriz [i] [j] == 'O') {
-				if (qtd == 2 || qtd == 3) {
-					matrizAuxiliar [i] [j] = 'O';
-				}
-			}
-			else {
-				if (qtd == 3) {
-					matrizAuxiliar [i] [j] = 'O';
-				}
-			}
+	limpaLvivoprox();
+	
+	TipoCel *aux = pvivo;
+	while (aux != NULL) {
+		int qtd = calcularVizinhos(aux->lin, aux->col);
+		
+		if (qtd == 2 || qtd == 3) {
+			carregaVivoprox(aux->lin, aux->col);
 		}
+		
+		aux = aux->next;
+	}
+	
+	aux = pmorto;
+	while (aux != NULL) {
+		int qtd = calcularVizinhos(aux->lin, aux->col);
+		
+		if (qtd == 3) {
+			carregaVivoprox(aux->lin, aux->col);
+		}
+		
+		aux = aux->next;
 	}
 }
 
@@ -487,7 +494,6 @@ void limparGeracao() {
 }
 
 void limparMapa() {
-	//Define cada célula da matriz como vazia ('.')
 	for (int linha = 0; linha < dimensao; linha++) {
 		for (int coluna = 0; coluna < dimensao; coluna++) {
 			matriz [linha] [coluna] = '.';
@@ -495,10 +501,13 @@ void limparMapa() {
 		}
 	}
 	
+	limpaLvivo();
+	limpaLmorto();
+	limpaLvivoprox();
+	
 	limparTela();
+	printf("\n---------------MAPA LIMPO!---------------");
 	apresentarMapa();
-	printf("\n---------------MAPA LIMPO!---------------\n");
-	Sleep(1000);
 }
 
 void limparMatriz() {
@@ -693,15 +702,82 @@ void processo() {
 	}
 }
 
-void proximaGeracao() {
-	limparMatrizAux();
-	gerarVivas();
+//Gera a lista de celulas vivas a partir da matriz atual
+void gerarListaVivos() {
+	limpaLvivo();
 	
 	for (int i = 0; i < dimensao; i++) {
 		for (int j = 0; j < dimensao; j++) {
-			matriz[i][j] = matrizAuxiliar[i][j];
+			if (matriz[i][j] == 'O') {
+				carregaVivo(i, j);
+			}
 		}
 	}
+}
+
+//Gera a lista de celulas mortas-vizinhas a partir da lista de vivos
+void gerarListaMortos() {
+	limpaLmorto();
+	
+	TipoCel *aux = pvivo;
+	
+	while (aux != NULL) {
+		int lin = aux->lin;
+		int col = aux->col;
+		
+		for (int i = -1; i <= 1; i++) {
+			for (int j = -1; j <= 1; j++) {
+				int nL = lin + i;
+				int nC = col + j;
+				
+				if (nL >= 0 && nL < dimensao && nC >= 0 && nC < dimensao) {
+					if (matriz[nL][nC] != 'O') {
+						int jaExiste = 0;
+						TipoCel *busca = pmorto;
+						
+						while (busca != NULL) {
+							if (busca->lin == nL && busca->col == nC) {
+								jaExiste = 1;
+								break;
+							}
+							busca = busca->next;
+						}
+						
+						if (jaExiste == 0) {
+							carregaMorto(nL, nC);
+						}
+					}
+				}
+			}
+		}
+		
+		aux = aux->next;
+	}
+}
+
+//Atualiza a matriz a partir da lista de vivos da proxima geracao
+void atualizaMatrizDaLista() {
+	limparMatriz();
+	
+	TipoCel *aux = pvivoprox;
+	
+	while (aux != NULL) {
+		matriz[aux->lin][aux->col] = 'O';
+		aux = aux->next;
+	}
+}
+
+void proximaGeracao() {
+	gerarListaVivos();
+	gerarListaMortos();
+	gerarVivas();
+	atualizaMatrizDaLista();
+	
+	limpaLvivo();
+	pvivo = pvivoprox;
+	totvivo = totvivoprox;
+	pvivoprox = NULL;
+	totvivoprox = 0;
 	
 	geracao++;
 	apresentarMapa();

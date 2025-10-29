@@ -5,6 +5,8 @@
 //Raul Kolaric
 //Rodrigo Ward Leite
 
+#include <stdlib.h>
+
 typedef struct cel {
 	int lin;
 	int col;

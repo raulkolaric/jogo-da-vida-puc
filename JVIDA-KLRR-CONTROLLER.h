@@ -19,6 +19,10 @@ void limpaLvivo();
 void limpaLmorto();
 void limpaLvivoprox();
 
+void gerarListaVivos();
+void gerarListaMortos();
+void atualizaMatrizDaLista();
+
 //Funcoes
 void apresentarListas();
 //void avancar();
