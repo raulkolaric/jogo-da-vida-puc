@@ -177,7 +177,18 @@ void limpaLvivoprox() {
 }
 
 void apresentarListas() {
+	limparTela();
+	apresentarMapa();
 	
+	printf("\n========== LISTAS DE CELULAS ==========\n\n");
+	
+	mostraLvivo();
+	mostraLmorto();
+	mostraLvivoprox();
+	
+	printf("\n=======================================\n\n");
+	
+	system("pause");
 }
 
 /*void avancar() {
@@ -307,8 +318,7 @@ void gravarGeracao() {
 void incluirExcluir() {
 	do {
 		apresentarMapa();
-		
-		printf("\n-------------------------------------------------------------------");
+		printf("-------------------------------------------------------------------");
 		printf("\nCoordenadas das Celulas Vivas da Geracao (0 0 para sair): ");
 		scanf("%d %d", &coordenadaX, &coordenadaY);
 		printf("-------------------------------------------------------------------\n");
@@ -318,17 +328,18 @@ void incluirExcluir() {
 			break;
 		}
 		
-		//Verifica se as coordenadas estão dentro dos limites
-		else if (((coordenadaX >= 1) && (coordenadaX <= dimensao)) && ((coordenadaY >= 1) && (coordenadaY <= dimensao))) {
-			//Adiciona célula viva se o espaço estiver vazio
+		if (((coordenadaX >= 1) && (coordenadaX <= dimensao)) && ((coordenadaY >= 1) && (coordenadaY <= dimensao))) {
 			if (matriz [coordenadaX - 1] [coordenadaY - 1] != 'O') {
 				matriz [coordenadaX - 1] [coordenadaY - 1] = 'O';
 				matrizAuxiliar [coordenadaX - 1] [coordenadaY - 1] = 'O';
+				carregaVivo(coordenadaX - 1, coordenadaY - 1);
 				printf("\n-------------CELULA ADICIONADA-------------");
+				
+				Sleep(300);
+    			limparTela();
 			}
 			
 			else if (matriz [coordenadaX - 1] [coordenadaY - 1] == 'O') {
-				//Caso o espaço já esteja ocupado, pergunta se o jogador quer remover
 				fclear();
 				printf("\nDeseja excluir do mapa? (S/N): ");
 				scanf(" %c", &excluir);
@@ -347,6 +358,8 @@ void incluirExcluir() {
 					else {
 						printf("\n-----------REMOCAO NAO REALIZADA-----------");
 					}
+				
+					apresentarMapa();
 				}	
 			}
 		}
@@ -356,7 +369,6 @@ void incluirExcluir() {
 		}
 		
 		Sleep(500);
-		limparTela();
 	} while (1);
 }
 
