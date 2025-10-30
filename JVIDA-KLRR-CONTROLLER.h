@@ -42,3 +42,25 @@ void processo();
 void proximaGeracao();
 void recuperarGeracao();
 
+//dica 7 e 8
+void excluiLVivo(int ii, int jj);	//feito	
+void carregaMortosVizinhos();			
+void carrega1Morto(int ii,int jj);
+bool verifica1Morto(int ii,int jj);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

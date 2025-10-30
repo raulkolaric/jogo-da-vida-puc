@@ -786,3 +786,27 @@ void proximaGeracao() {
 void recuperarGeracao() {
 	
 }
+
+void excluiLVivo(int ii, int jj)
+{
+	TipoCel *aux, *aux2; //define 2 ponteiros auxiliares
+	aux = pvivo;
+	aux2 = aux; //guarda a célula como sendo a anterior
+	if (totvivo > 0)
+	{
+		while (aux->lin != ii || aux->col != jj)
+	{
+		aux2 = aux;
+		aux = aux->next;
+	}
+	if (aux->lin == ii && aux->col == jj)
+	{
+	if (aux2 == aux) //se é o primeiro da lista
+		pvivo = aux->next;
+	else
+		aux2->next = aux->next;
+		free(aux);
+	}
+		totvivo--;
+	}
+}
