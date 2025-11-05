@@ -1,5 +1,5 @@
 //Jogo-da-Vida-MAIN.cpp - Projeto Jogo da Vida
-//28/10/2025 - Grupo: KLRR
+//04/11/2025 - Grupo: KLRR
 //Kauã Bezerra Brito
 //Liam Vedovato Lopes
 //Raul Kolaric
@@ -9,5 +9,5 @@
 #include "JVIDA-KLRR-CONTROLLER.cpp"
 
 int main() {
-	jogar();
+	jogar(); 
 }
