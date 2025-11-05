@@ -1,5 +1,5 @@
 //Jogo-da-Vida-VIEW.cpp - Projeto Jogo da Vida
-//28/10/2025 - Grupo: KLRR
+//04/11/2025 - Grupo: KLRR
 //Kauã Bezerra Brito
 //Liam Vedovato Lopes
 //Raul Kolaric
@@ -39,7 +39,8 @@ void apresentarMapa() {
     }
     
     printf("\nGeracao: %d\n", geracao);
-    //system("pause");
+    
+    apresentarListas();
 }
 
 //Limpa o buffer de entrada
@@ -69,8 +70,8 @@ char menu() {
 		printf("| 5 - Apresentar as Listas                                            |\n");
 		printf("| 6 - Gravar uma geracao inicial                                      |\n");
 		printf("| 7 - Recuperar uma geracao inicial cadastrada                        |\n");
-		printf("| 8 - Limpar o cadastro de gerações iniciais cadastradas (n gerações) |\n");
-		printf("| 9 - Regras de evolução das celulas                                  |\n");
+		printf("| 8 - Limpar o cadastro de geracoes iniciais cadastradas (n geracoes) |\n");
+		printf("| 9 - Regras de evolucao das celulas                                  |\n");
 		printf("| 0 - Sair do programa                                                |\n");
 		printf("-----------------------------------------------------------------------\n");
 		printf("Opcao selecionada: ");
