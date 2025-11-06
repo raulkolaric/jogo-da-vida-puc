@@ -19,7 +19,7 @@ TipoCel *pvivo = NULL;
 TipoCel *pmorto = NULL;
 TipoCel *pvivoprox = NULL;
 
-
+//estrutura de celula para gravação (nao precisa do next)
 typedef struct c {
 	int lin, col;
 } Cel;
