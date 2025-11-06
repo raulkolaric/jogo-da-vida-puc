@@ -18,3 +18,21 @@ typedef struct cel {
 TipoCel *pvivo = NULL;
 TipoCel *pmorto = NULL;
 TipoCel *pvivoprox = NULL;
+
+
+typedef struct c {
+	int lin, col;
+} Cel;
+
+typedef struct list {
+	int cont; 			//tamanho da lista
+	Cel L[MAXLIST];		//maxlist = tamanho maximo das listas (para gravação)
+} TipoLista;
+
+TipoLista Lvivo;
+
+struct arquivo {
+	TipoLista TL;
+} LConfig[MAXINIC];		//maxinic= qtd maxima de configurações iniciais (para gravação)
+
+
