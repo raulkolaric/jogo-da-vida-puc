@@ -8,6 +8,134 @@
 #include "JVIDA-KLRR-CONTROLLER.h"
 #include "JVIDA-KLRR-VIEW.cpp"
 
+//etapa 5
+//grava no .dat
+void gravarGeracao() {
+    FILE *arq;
+    char nomeArquivo[] = "geracoes.dat";
+    TipoCel *aux = pvivo;
+    int contador = 0;
+
+    // Conta células vivas
+    while (aux != NULL) {
+        contador++;
+        aux = aux->next;
+    }
+
+    if (contador == 0) {
+        printf("\nNenhuma célula viva para gravar.\n");
+        Sleep(1000);
+        return;
+    }
+
+    // Abre o arquivo no modo de anexação binária
+    arq = fopen(nomeArquivo, "ab");
+    if (arq == NULL) {
+        printf("\nErro ao abrir o arquivo de gravação.\n");
+        Sleep(1000);
+        return;
+    }
+
+    // Escreve cabeçalho simples: número da geração e quantidade
+    fwrite(&geracao, sizeof(int), 1, arq);
+    fwrite(&contador, sizeof(int), 1, arq);
+
+    // Escreve as coordenadas vivas (lin, col)
+    aux = pvivo;
+    while (aux != NULL) {
+        fwrite(&(aux->lin), sizeof(int), 1, arq);
+        fwrite(&(aux->col), sizeof(int), 1, arq);
+        aux = aux->next;
+    }
+
+    fclose(arq);
+
+    printf("\nGeração %d gravada com sucesso em '%s' (%d células vivas).\n",
+           geracao, nomeArquivo, contador);
+    Sleep(1000);
+}
+
+
+//etapa 5
+//recupera a gravação
+void recuperarGeracao() {
+    static int indiceLeitura = 0; // mantém progresso entre chamadas
+    FILE *arq;
+    char nomeArquivo[] = "geracoes.dat";
+    int numGeracao = 0, qtd = 0;
+
+    arq = fopen(nomeArquivo, "rb");
+    if (arq == NULL) {
+        printf("\nNenhum arquivo de geração encontrado ('%s').\n", nomeArquivo);
+        Sleep(1000);
+        return;
+    }
+
+    // Descobre quantas gerações existem no arquivo
+    fseek(arq, 0, SEEK_END);
+    long tamanho = ftell(arq);
+    rewind(arq);
+
+    long posicao = 0;
+    int totalGeracoes = 0;
+    while (posicao < tamanho) {
+        int g, q;
+        fread(&g, sizeof(int), 1, arq);
+        fread(&q, sizeof(int), 1, arq);
+        fseek(arq, q * sizeof(int) * 2, SEEK_CUR);
+        totalGeracoes++;
+        posicao = ftell(arq);
+    }
+
+    if (totalGeracoes == 0) {
+        printf("\nArquivo vazio, nenhuma geração para carregar.\n");
+        fclose(arq);
+        Sleep(1000);
+        return;
+    }
+
+    if (indiceLeitura >= totalGeracoes) {
+        printf("\nFim das gerações gravadas. Reiniciando leitura.\n");
+        indiceLeitura = 0;
+    }
+
+    // Move até a geração desejada
+    rewind(arq);
+    for (int i = 0; i < indiceLeitura; i++) {
+        int g, q;
+        fread(&g, sizeof(int), 1, arq);
+        fread(&q, sizeof(int), 1, arq);
+        fseek(arq, q * sizeof(int) * 2, SEEK_CUR);
+    }
+
+    // Lê a próxima geração
+    fread(&numGeracao, sizeof(int), 1, arq);
+    fread(&qtd, sizeof(int), 1, arq);
+
+    // Limpa o tabuleiro antes de carregar
+    limparMapa();
+
+    printf("\nCarregando geração %d (%d células vivas)...\n", numGeracao, qtd);
+
+    for (int i = 0; i < qtd; i++) {
+        int lin, col;
+        fread(&lin, sizeof(int), 1, arq);
+        fread(&col, sizeof(int), 1, arq);
+        if (lin < dimensao && col < dimensao) {
+            matriz[lin][col] = 'O';
+            carregarVivo(lin, col);
+        }
+    }
+
+    geracao = numGeracao;
+    indiceLeitura++;
+    fclose(arq);
+
+    apresentarMapa();
+    Sleep(1000);
+}
+
+
 //Exibe as listas de células (vivas, mortas e próximas vivas)
 void apresentarListas() {
 	printf("\n--------------Listas de Celulas--------------\n\n");
@@ -393,9 +521,7 @@ void incluirExcluir() {
 //	}
 //}
 
-void gravarGeracao() {
-	
-}
+
 
 void jogar() {
 	do {
@@ -827,6 +953,3 @@ void proximaGeracao() {
 	totvivoprox = 0;
 }
 
-void recuperarGeracao() {
-	
-}

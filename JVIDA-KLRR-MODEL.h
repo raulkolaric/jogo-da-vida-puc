@@ -21,6 +21,6 @@ int totmorto = 0;
 int totvivoprox = 0;
 
 //tamanhos maximo para gravação
-int MAXLIST = 50O;
-int MAXINIC = 50;
+#define MAXLIST 500
+#define MAXINIC 50
 

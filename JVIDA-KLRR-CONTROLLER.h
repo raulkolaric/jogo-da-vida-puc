@@ -42,6 +42,11 @@ void recuperarGeracao();
 //void carregar1Morto(int ii,int jj);
 //bool verificar1Morto(int ii,int jj);
 
+//etapa 5
+void gravarGeracao();
+void recuperarGeracao();
+
+
 
 
 
