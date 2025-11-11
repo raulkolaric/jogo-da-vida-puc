@@ -1,5 +1,5 @@
 //Jogo-da-Vida-CONTROLLER.h - Projeto Jogo da Vida
-//04/11/2025 - Grupo: KLRR
+//11/11/2025 - Grupo: KLRR
 //Kauã Bezerra Brito
 //Liam Vedovato Lopes
 //Raul Kolaric
