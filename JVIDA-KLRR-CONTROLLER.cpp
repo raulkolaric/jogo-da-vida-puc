@@ -1,6 +1,6 @@
 //Jogo-da-Vida-CONTROLLER.cpp - Projeto Jogo da Vida
 //11/11/2025 - Grupo: KLRR
-//Kauã Bezerra Brito
+//KauÃ£ Bezerra Brito
 //Liam Vedovato Lopes
 //Raul Kolaric
 //Rodrigo Ward Leite
@@ -16,27 +16,27 @@ void gravarGeracao() {
     TipoCel *aux = pvivo;
     int contador = 0;
 
-    // Conta células vivas
+    // Conta cÃ©lulas vivas
     while (aux != NULL) {
         contador++;
         aux = aux->next;
     }
 
     if (contador == 0) {
-        printf("\nNenhuma célula viva para gravar.\n");
+        printf("\nNenhuma cÃ©lula viva para gravar.\n");
         Sleep(1000);
         return;
     }
 
-    // Abre o arquivo no modo de anexação binária
+    // Abre o arquivo no modo de anexaÃ§Ã£o binÃ¡ria
     arq = fopen(nomeArquivo, "ab");
     if (arq == NULL) {
-        printf("\nErro ao abrir o arquivo de gravação.\n");
+        printf("\nErro ao abrir o arquivo de gravacao.\n");
         Sleep(1000);
         return;
     }
 
-    // Escreve cabeçalho simples: número da geração e quantidade
+    // Escreve cabeÃ§alho simples: nÃºmero da geraÃ§Ã£o e quantidade
     fwrite(&geracao, sizeof(int), 1, arq);
     fwrite(&contador, sizeof(int), 1, arq);
 
@@ -50,28 +50,28 @@ void gravarGeracao() {
 
     fclose(arq);
 
-    printf("\nGeração %d gravada com sucesso em '%s' (%d células vivas).\n",
+    printf("\nGeracao %d gravada com sucesso em '%s' (%d celulas vivas).\n",
            geracao, nomeArquivo, contador);
     Sleep(1000);
 }
 
 
 //etapa 5
-//recupera a gravação
+//recupera a gravaÃ§Ã£o
 void recuperarGeracao() {
-    static int indiceLeitura = 0; // mantém progresso entre chamadas
+    static int indiceLeitura = 0; // mantÃ©m progresso entre chamadas
     FILE *arq;
     char nomeArquivo[] = "geracoes.dat";
     int numGeracao = 0, qtd = 0;
 
     arq = fopen(nomeArquivo, "rb");
     if (arq == NULL) {
-        printf("\nNenhum arquivo de geração encontrado ('%s').\n", nomeArquivo);
+        printf("\nNenhum arquivo de geraÃ§Ã£o encontrado ('%s').\n", nomeArquivo);
         Sleep(1000);
         return;
     }
 
-    // Descobre quantas gerações existem no arquivo
+    // Descobre quantas geraÃ§Ãµes existem no arquivo
     fseek(arq, 0, SEEK_END);
     long tamanho = ftell(arq);
     rewind(arq);
@@ -88,18 +88,18 @@ void recuperarGeracao() {
     }
 
     if (totalGeracoes == 0) {
-        printf("\nArquivo vazio, nenhuma geração para carregar.\n");
+        printf("\nArquivo vazio, nenhuma geracao para carregar.\n");
         fclose(arq);
         Sleep(1000);
         return;
     }
 
     if (indiceLeitura >= totalGeracoes) {
-        printf("\nFim das gerações gravadas. Reiniciando leitura.\n");
+        printf("\nFim das geraÃ§Ãµes gravadas. Reiniciando leitura.\n");
         indiceLeitura = 0;
     }
 
-    // Move até a geração desejada
+    // Move atÃ© a geraÃ§Ã£o desejada
     rewind(arq);
     for (int i = 0; i < indiceLeitura; i++) {
         int g, q;
@@ -108,14 +108,14 @@ void recuperarGeracao() {
         fseek(arq, q * sizeof(int) * 2, SEEK_CUR);
     }
 
-    // Lê a próxima geração
+    // LÃª a prÃ³xima geraÃ§Ã£o
     fread(&numGeracao, sizeof(int), 1, arq);
     fread(&qtd, sizeof(int), 1, arq);
 
     // Limpa o tabuleiro antes de carregar
     limparMapa();
 
-    printf("\nCarregando geração %d (%d células vivas)...\n", numGeracao, qtd);
+    printf("\nCarregando geraÃ§Ã£o %d (%d celulas vivas)...\n", numGeracao, qtd);
 
     for (int i = 0; i < qtd; i++) {
         int lin, col;
@@ -136,7 +136,7 @@ void recuperarGeracao() {
 }
 
 
-//Exibe as listas de células (vivas, mortas e próximas vivas)
+//Exibe as listas de cÃ©lulas (vivas, mortas e prÃ³ximas vivas)
 void apresentarListas() {
 	printf("\n--------------Listas de Celulas--------------\n\n");
 	
@@ -248,7 +248,7 @@ void carregarVivo(int linha, int coluna) {
         aux = aux->next;
     }
 
-    //Remove da lista de mortos se estiver lá
+    //Remove da lista de mortos se estiver lÃ¡
     TipoCel *m = pmorto;
     TipoCel *prevm = NULL;
     while (m != NULL) {
@@ -363,13 +363,13 @@ void gerarListaMortos() {
         int lin = aux->lin;
         int col = aux->col;
 
-        // varre os 8 vizinhos da célula viva atual
+        // varre os 8 vizinhos da cÃ©lula viva atual
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 int nL = lin + i;
                 int nC = col + j;
 
-                // garante que não é a própria célula e está dentro dos limites
+                // garante que nÃ£o Ã© a prÃ³pria cÃ©lula e estÃ¡ dentro dos limites
                 if ((i != 0 || j != 0) && nL >= 0 && nL < dimensao && nC >= 0 && nC < dimensao) {
                     if (matriz[nL][nC] != 'O') {
                         int vivos = calcularVizinhos(nL, nC);
@@ -410,13 +410,13 @@ void gerarListaVivos() {
 	}
 }
 
-// Gera a lista de vivos da próxima geração
+// Gera a lista de vivos da prÃ³xima geraÃ§Ã£o
 void gerarVivas() {
-    limparLvivoprox(); // limpa a lista anterior da próxima geração
+    limparLvivoprox(); // limpa a lista anterior da prÃ³xima geraÃ§Ã£o
 
     TipoCel *aux = pvivo;
 
-    //Células vivas que sobrevivem (2 ou 3 vizinhos vivos)
+    //CÃ©lulas vivas que sobrevivem (2 ou 3 vizinhos vivos)
     while (aux != NULL) {
         int qtd = calcularVizinhos(aux->lin, aux->col);
         if (qtd == 2 || qtd == 3) {
@@ -425,7 +425,7 @@ void gerarVivas() {
         aux = aux->next;
     }
 
-    //Células mortas que "nascem" (3 vizinhos vivos)
+    //CÃ©lulas mortas que "nascem" (3 vizinhos vivos)
     TipoCel *auxM = pmorto;
     while (auxM != NULL) {
         int qtd = calcularVizinhos(auxM->lin, auxM->col);
@@ -532,7 +532,7 @@ void jogar() {
 		printf("---------------------------------------------");
 		Sleep(250);
 		
-		//Validação do tamanho do tabuleiro
+		//ValidaÃ§Ã£o do tamanho do tabuleiro
 		if ((dimensao < 10) || (dimensao > 60)) {
 			printf("\n\n------------DIMENSAO INVALIDA!------------");
 			Sleep(500);
@@ -540,7 +540,7 @@ void jogar() {
 		}
 		
 		else {
-			//Inicializa as matrizes com células vazias
+			//Inicializa as matrizes com cÃ©lulas vazias
 			for (int linha = 0; linha < dimensao; linha++) {
 				for (int coluna = 0; coluna < dimensao; coluna++) {
 					matriz [linha] [coluna] = '.';
@@ -567,7 +567,7 @@ void jogar() {
 				break;
 			
 			case('3'): 
-				char simNao; //Variável para armazenar a resposta do usuário (S ou N)
+				char simNao; //VariÃ¡vel para armazenar a resposta do usuÃ¡rio (S ou N)
 				
 				do {
 					limparTela();
@@ -579,7 +579,7 @@ void jogar() {
 					simNao = toupper(simNao);
 					printf("-----------------------------------------------------------------------------------------");
 					
-					//Verifica a resposta do usuário
+					//Verifica a resposta do usuÃ¡rio
 					if (simNao == 'S') {
 						mostrar = 1;
 					}
@@ -708,21 +708,21 @@ void limparMatriz() {
 }
 
 void mostrarEsconder() {
-	//Se a opção de mostrar células vizinhas-mortas estiver ativada
+	//Se a opÃ§Ã£o de mostrar cÃ©lulas vizinhas-mortas estiver ativada
 	if (mostrar == 1) {
 		for (int linha = 0; linha < dimensao; linha++) {
 			for (int coluna = 0; coluna < dimensao; coluna++) {
-				//Verifica se a célula atual NÃO é viva ('O')
+				//Verifica se a cÃ©lula atual NÃƒO Ã© viva ('O')
 				if (matriz [linha] [coluna] != 'O') {
 					int vivos = 0;
 					
-					//Verifica os 8 vizinhos da célula (varre de -1 a +1 em linha e coluna)
+					//Verifica os 8 vizinhos da cÃ©lula (varre de -1 a +1 em linha e coluna)
 					for (int l = -1; l <= 1; l++) {
 						for (int c = -1; c <= 1; c++) {
 							int nL = linha + l;
 							int nC = coluna + c;
 							
-							//Garante que não está contando a própria célula e que está dentro dos limites
+							//Garante que nÃ£o estÃ¡ contando a prÃ³pria cÃ©lula e que estÃ¡ dentro dos limites
 							if ((l != 0 || c != 0) && nL >= 0 && nL < dimensao && nC >= 0 && nC < dimensao) {
 								if (matriz [nL] [nC] == 'O') {
 									vivos++;
@@ -731,7 +731,7 @@ void mostrarEsconder() {
 						}
 					}
 					
-					//Se houver pelo menos uma célula viva vizinha, marca a célula atual com '+'
+					//Se houver pelo menos uma cÃ©lula viva vizinha, marca a cÃ©lula atual com '+'
 					if (vivos > 0) {
 						matriz [linha] [coluna] = '+';
 					}
@@ -740,7 +740,7 @@ void mostrarEsconder() {
 		}
 	}
 	
-	//Se a opção de mostrar estiver desativada, remove os '+' e volta para '.'
+	//Se a opÃ§Ã£o de mostrar estiver desativada, remove os '+' e volta para '.'
 	else {
 		for (int linha = 0; linha < dimensao; linha++) {
 			for (int coluna = 0; coluna < dimensao; coluna++) {
@@ -937,7 +937,7 @@ void processo() {
 void proximaGeracao() {
     gerarListaVivos();   // Atualiza pvivo com base na matriz
     gerarListaMortos();  // Cria lista de mortos vizinhos
-    gerarVivas();        // Calcula os vivos da próxima geração
+    gerarVivas();        // Calcula os vivos da prÃ³xima geraÃ§Ã£o
     atualizaMatrizDaLista();
     gerarListaVivos();   // Atualiza pvivo com base na matriz
     gerarListaMortos();  // Cria lista de mortos vizinhos
