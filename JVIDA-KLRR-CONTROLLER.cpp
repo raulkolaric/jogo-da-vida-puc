@@ -23,7 +23,7 @@ void gravarGeracao() {
     }
 
     if (contador == 0) {
-        printf("\nNenhuma célula viva para gravar.\n");
+        printf("\nNenhuma celula viva para gravar.\n");
         Sleep(1000);
         return;
     }
@@ -66,7 +66,7 @@ void recuperarGeracao() {
 
     arq = fopen(nomeArquivo, "rb");
     if (arq == NULL) {
-        printf("\nNenhum arquivo de geração encontrado ('%s').\n", nomeArquivo);
+        printf("\nNenhum arquivo de geracao encontrado ('%s').\n", nomeArquivo);
         Sleep(1000);
         return;
     }
@@ -115,7 +115,7 @@ void recuperarGeracao() {
     // Limpa o tabuleiro antes de carregar
     limparMapa();
 
-    printf("\nCarregando geração %d (%d celulas vivas)...\n", numGeracao, qtd);
+    printf("\nCarregando geracao %d (%d celulas vivas)...\n", numGeracao, qtd);
 
     for (int i = 0; i < qtd; i++) {
         int lin, col;
