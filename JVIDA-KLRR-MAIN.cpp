@@ -1,6 +1,6 @@
-//Jogo-da-Vida-MAIN.cpp - Projeto Jogo da Vida
+//JVIDA-6-KLRR-MAIN.cpp - Projeto Jogo da Vida
 //11/11/2025 - Grupo: KLRR
-//Kauã Bezerra Brito
+//Kauï¿½ Bezerra Brito
 //Liam Vedovato Lopes
 //Raul Kolaric
 //Rodrigo Ward Leite

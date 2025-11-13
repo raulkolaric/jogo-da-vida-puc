@@ -1,6 +1,6 @@
-//Jogo-da-Vida-VIEW.cpp - Projeto Jogo da Vida
+//JVIDA-6-KLRR-VIEW.cpp - Projeto Jogo da Vida
 //11/11/2025 - Grupo: KLRR
-//Kauã Bezerra Brito
+//Kauï¿½ Bezerra Brito
 //Liam Vedovato Lopes
 //Raul Kolaric
 //Rodrigo Ward Leite
@@ -9,7 +9,7 @@
 
 //Exibe o mapa atual
 void apresentarMapa() {
-	mostrarEsconder();			//Atualiza os '+' se a opção "mostrar vizinhos" estiver ativada
+	mostrarEsconder();			//Atualiza os '+' se a opï¿½ï¿½o "mostrar vizinhos" estiver ativada
 	
 	printf("\n   ");
 	
@@ -57,7 +57,7 @@ void limparTela() {
 	system("cls");
 }
 
-//Exibe o menu principal e retorna a opção escolhida
+//Exibe o menu principal e retorna a opï¿½ï¿½o escolhida
 char menu() {
 	do {
 		limparTela();

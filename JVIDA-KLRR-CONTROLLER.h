@@ -1,11 +1,11 @@
-//Jogo-da-Vida-CONTROLLER.h - Projeto Jogo da Vida
+//JVIDA-6-KLRR-CONTROLLER.h - Projeto Jogo da Vida
 //11/11/2025 - Grupo: KLRR
-//Kauã Bezerra Brito
+//Kauï¿½ Bezerra Brito
 //Liam Vedovato Lopes
 //Raul Kolaric
 //Rodrigo Ward Leite
 
-//Biblioteca padrão
+//Biblioteca padrï¿½o
 #include <stdio.h>
 
 //Funcoes
@@ -22,7 +22,7 @@ void gerarVivas();
 void gerarListaMortos();
 void gerarListaVivos();
 void gravarGeracao();
-void incluirExcluir(); 		//Permite incluir ou excluir células vivas manualmente
+void incluirExcluir(); 		//Permite incluir ou excluir cï¿½lulas vivas manualmente
 void jogar();				//Controla o fluxo principal do jogo
 void limparGeracao();
 void limparLmorto();
@@ -30,7 +30,7 @@ void limparLvivo();
 void limparLvivoprox();
 void limparMapa();			//Limpa completamente o mapa atual
 void limparMatriz();
-void mostrarEsconder();		//Mostra ou esconde as células vizinhas mortas
+void mostrarEsconder();		//Mostra ou esconde as cï¿½lulas vizinhas mortas
 void mostrarLmorto();
 void mostrarLvivo();
 void mostrarLvivoprox();

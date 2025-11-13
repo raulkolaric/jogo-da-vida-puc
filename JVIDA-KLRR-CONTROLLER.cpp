@@ -1,4 +1,4 @@
-//Jogo-da-Vida-CONTROLLER.cpp - Projeto Jogo da Vida
+//JVIDA-6-KLRR-CONTROLLER.cpp - Projeto Jogo da Vida
 //11/11/2025 - Grupo: KLRR
 //Kauã Bezerra Brito
 //Liam Vedovato Lopes
