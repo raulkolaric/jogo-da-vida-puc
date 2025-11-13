@@ -1,5 +1,5 @@
 //Jogo-da-Vida-MODEL.cpp - Projeto Jogo da Vida
-//04/11/2025 - Grupo: KLRR
+//11/11/2025 - Grupo: KLRR
 //Kauã Bezerra Brito
 //Liam Vedovato Lopes
 //Raul Kolaric
@@ -18,3 +18,21 @@ typedef struct cel {
 TipoCel *pvivo = NULL;
 TipoCel *pmorto = NULL;
 TipoCel *pvivoprox = NULL;
+
+//estrutura de celula para gravação (nao precisa do next)
+typedef struct c {
+	int lin, col;
+} Cel;
+
+typedef struct list {
+	int cont; 			//tamanho da lista
+	Cel L[MAXLIST];		//maxlist = tamanho maximo das listas (para gravação)
+} TipoLista;
+
+TipoLista Lvivo;
+
+struct arquivo {
+	TipoLista TL;
+} LConfig[MAXINIC];		//maxinic= qtd maxima de configurações iniciais (para gravação)
+
+

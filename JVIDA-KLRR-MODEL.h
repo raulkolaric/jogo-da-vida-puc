@@ -1,5 +1,5 @@
 //Jogo-da-Vida-MODEL.h - Projeto Jogo da Vida
-//04/11/2025 - Grupo: KLRR
+//11/11/2025 - Grupo: KLRR
 //Kauã Bezerra Brito
 //Liam Vedovato Lopes
 //Raul Kolaric
@@ -19,4 +19,8 @@ int mostrar = 0;					//Flag para mostrar (1) ou esconder (0) vizinhos mortos
 int totvivo = 0;
 int totmorto = 0;
 int totvivoprox = 0;
+
+//tamanhos maximo para gravação
+#define MAXLIST 500
+#define MAXINIC 50
 

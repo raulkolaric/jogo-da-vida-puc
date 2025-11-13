@@ -1,6 +1,6 @@
 //Jogo-da-Vida-CONTROLLER.cpp - Projeto Jogo da Vida
-//04/11/2025 - Grupo: KLRR
-//Kau„ Bezerra Brito
+//11/11/2025 - Grupo: KLRR
+//Kau√£ Bezerra Brito
 //Liam Vedovato Lopes
 //Raul Kolaric
 //Rodrigo Ward Leite
@@ -8,7 +8,135 @@
 #include "JVIDA-KLRR-CONTROLLER.h"
 #include "JVIDA-KLRR-VIEW.cpp"
 
-//Exibe as listas de cÈlulas (vivas, mortas e prÛximas vivas)
+//etapa 5
+//grava no .dat
+void gravarGeracao() {
+    FILE *arq;
+    char nomeArquivo[] = "geracoes.dat";
+    TipoCel *aux = pvivo;
+    int contador = 0;
+
+    // Conta c√©lulas vivas
+    while (aux != NULL) {
+        contador++;
+        aux = aux->next;
+    }
+
+    if (contador == 0) {
+        printf("\nNenhuma celula viva para gravar.\n");
+        Sleep(1000);
+        return;
+    }
+
+    // Abre o arquivo no modo de anexa√ß√£o bin√°ria
+    arq = fopen(nomeArquivo, "ab");
+    if (arq == NULL) {
+        printf("\nErro ao abrir o arquivo de gravacao.\n");
+        Sleep(1000);
+        return;
+    }
+
+    // Escreve cabe√ßalho simples: n√∫mero da gera√ß√£o e quantidade
+    fwrite(&geracao, sizeof(int), 1, arq);
+    fwrite(&contador, sizeof(int), 1, arq);
+
+    // Escreve as coordenadas vivas (lin, col)
+    aux = pvivo;
+    while (aux != NULL) {
+        fwrite(&(aux->lin), sizeof(int), 1, arq);
+        fwrite(&(aux->col), sizeof(int), 1, arq);
+        aux = aux->next;
+    }
+
+    fclose(arq);
+
+    printf("\nGeracao %d gravada com sucesso em '%s' (%d celulas vivas).\n",
+           geracao, nomeArquivo, contador);
+    Sleep(1000);
+}
+
+
+//etapa 5
+//recupera a grava√ß√£o
+void recuperarGeracao() {
+    static int indiceLeitura = 0; // mant√©m progresso entre chamadas
+    FILE *arq;
+    char nomeArquivo[] = "geracoes.dat";
+    int numGeracao = 0, qtd = 0;
+
+    arq = fopen(nomeArquivo, "rb");
+    if (arq == NULL) {
+        printf("\nNenhum arquivo de geracao encontrado ('%s').\n", nomeArquivo);
+        Sleep(1000);
+        return;
+    }
+
+    // Descobre quantas gera√ß√µes existem no arquivo
+    fseek(arq, 0, SEEK_END);
+    long tamanho = ftell(arq);
+    rewind(arq);
+
+    long posicao = 0;
+    int totalGeracoes = 0;
+    while (posicao < tamanho) {
+        int g, q;
+        fread(&g, sizeof(int), 1, arq);
+        fread(&q, sizeof(int), 1, arq);
+        fseek(arq, q * sizeof(int) * 2, SEEK_CUR);
+        totalGeracoes++;
+        posicao = ftell(arq);
+    }
+
+    if (totalGeracoes == 0) {
+        printf("\nArquivo vazio, nenhuma geracao para carregar.\n");
+        fclose(arq);
+        Sleep(1000);
+        return;
+    }
+
+    if (indiceLeitura >= totalGeracoes) {
+        printf("\nFim das gera√ß√µes gravadas. Reiniciando leitura.\n");
+        indiceLeitura = 0;
+    }
+
+    // Move at√© a gera√ß√£o desejada
+    rewind(arq);
+    for (int i = 0; i < indiceLeitura; i++) {
+        int g, q;
+        fread(&g, sizeof(int), 1, arq);
+        fread(&q, sizeof(int), 1, arq);
+        fseek(arq, q * sizeof(int) * 2, SEEK_CUR);
+    }
+
+    // L√™ a pr√≥xima gera√ß√£o
+    fread(&numGeracao, sizeof(int), 1, arq);
+    fread(&qtd, sizeof(int), 1, arq);
+
+    // Limpa o tabuleiro antes de carregar
+    limparMapa();
+
+    printf("\nCarregando geracao %d (%d celulas vivas)...\n", numGeracao, qtd);
+
+    for (int i = 0; i < qtd; i++) {
+        int lin, col;
+        fread(&lin, sizeof(int), 1, arq);
+        fread(&col, sizeof(int), 1, arq);
+        if (lin < dimensao && col < dimensao) {
+            matriz[lin][col] = 'O';
+            carregarVivo(lin, col);
+        }
+    }
+
+    geracao = numGeracao;
+    indiceLeitura++;
+    fclose(arq);
+
+    apresentarMapa();
+    Sleep(1000);
+}
+
+
+//Exibe as listas de c√©lulas (vivas, mortas e pr√≥ximas vivas)
 void apresentarListas() {
 	printf("\n--------------Listas de Celulas--------------\n\n");
 	
@@ -120,7 +248,7 @@ void carregarVivo(int linha, int coluna) {
         aux = aux->next;
     }
 
-    //Remove da lista de mortos se estiver l·
+    //Remove da lista de mortos se estiver l√°
     TipoCel *m = pmorto;
     TipoCel *prevm = NULL;
     while (m != NULL) {
@@ -235,13 +363,13 @@ void gerarListaMortos() {
         int lin = aux->lin;
         int col = aux->col;
 
-        // varre os 8 vizinhos da cÈlula viva atual
+        // varre os 8 vizinhos da c√©lula viva atual
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 int nL = lin + i;
                 int nC = col + j;
 
-                // garante que n„o È a prÛpria cÈlula e est· dentro dos limites
+                // garante que n√£o √© a pr√≥pria c√©lula e est√° dentro dos limites
                 if ((i != 0 || j != 0) && nL >= 0 && nL < dimensao && nC >= 0 && nC < dimensao) {
                     if (matriz[nL][nC] != 'O') {
                         int vivos = calcularVizinhos(nL, nC);
@@ -282,13 +410,13 @@ void gerarListaVivos() {
 	}
 }
 
-// Gera a lista de vivos da prÛxima geraÁ„o
+// Gera a lista de vivos da pr√≥xima gera√ß√£o
 void gerarVivas() {
-    limparLvivoprox(); // limpa a lista anterior da prÛxima geraÁ„o
+    limparLvivoprox(); // limpa a lista anterior da pr√≥xima gera√ß√£o
 
     TipoCel *aux = pvivo;
 
-    //CÈlulas vivas que sobrevivem (2 ou 3 vizinhos vivos)
+    //C√©lulas vivas que sobrevivem (2 ou 3 vizinhos vivos)
     while (aux != NULL) {
         int qtd = calcularVizinhos(aux->lin, aux->col);
         if (qtd == 2 || qtd == 3) {
@@ -297,7 +425,7 @@ void gerarVivas() {
         aux = aux->next;
     }
 
-    //CÈlulas mortas que "nascem" (3 vizinhos vivos)
+    //C√©lulas mortas que "nascem" (3 vizinhos vivos)
     TipoCel *auxM = pmorto;
     while (auxM != NULL) {
         int qtd = calcularVizinhos(auxM->lin, auxM->col);
@@ -393,9 +521,7 @@ void incluirExcluir() {
 //	}
 //}
 
-void gravarGeracao() {
-	
-}
+
 
 void jogar() {
 	do {
@@ -406,7 +532,7 @@ void jogar() {
 		printf("---------------------------------------------");
 		Sleep(250);
 		
-		//ValidaÁ„o do tamanho do tabuleiro
+		//Valida√ß√£o do tamanho do tabuleiro
 		if ((dimensao < 10) || (dimensao > 60)) {
 			printf("\n\n------------DIMENSAO INVALIDA!------------");
 			Sleep(500);
@@ -414,7 +540,7 @@ void jogar() {
 		}
 		
 		else {
-			//Inicializa as matrizes com cÈlulas vazias
+			//Inicializa as matrizes com c√©lulas vazias
 			for (int linha = 0; linha < dimensao; linha++) {
 				for (int coluna = 0; coluna < dimensao; coluna++) {
 					matriz [linha] [coluna] = '.';
@@ -441,7 +567,7 @@ void jogar() {
 				break;
 			
 			case('3'): 
-				char simNao; //Vari·vel para armazenar a resposta do usu·rio (S ou N)
+				char simNao; //Vari√°vel para armazenar a resposta do usu√°rio (S ou N)
 				
 				do {
 					limparTela();
@@ -453,7 +579,7 @@ void jogar() {
 					simNao = toupper(simNao);
 					printf("-----------------------------------------------------------------------------------------");
 					
-					//Verifica a resposta do usu·rio
+					//Verifica a resposta do usu√°rio
 					if (simNao == 'S') {
 						mostrar = 1;
 					}
@@ -582,21 +708,21 @@ void limparMatriz() {
 }
 
 void mostrarEsconder() {
-	//Se a opÁ„o de mostrar cÈlulas vizinhas-mortas estiver ativada
+	//Se a op√ß√£o de mostrar c√©lulas vizinhas-mortas estiver ativada
 	if (mostrar == 1) {
 		for (int linha = 0; linha < dimensao; linha++) {
 			for (int coluna = 0; coluna < dimensao; coluna++) {
-				//Verifica se a cÈlula atual N√O È viva ('O')
+				//Verifica se a c√©lula atual N√ÉO √© viva ('O')
 				if (matriz [linha] [coluna] != 'O') {
 					int vivos = 0;
 					
-					//Verifica os 8 vizinhos da cÈlula (varre de -1 a +1 em linha e coluna)
+					//Verifica os 8 vizinhos da c√©lula (varre de -1 a +1 em linha e coluna)
 					for (int l = -1; l <= 1; l++) {
 						for (int c = -1; c <= 1; c++) {
 							int nL = linha + l;
 							int nC = coluna + c;
 							
-							//Garante que n„o est· contando a prÛpria cÈlula e que est· dentro dos limites
+							//Garante que n√£o est√° contando a pr√≥pria c√©lula e que est√° dentro dos limites
 							if ((l != 0 || c != 0) && nL >= 0 && nL < dimensao && nC >= 0 && nC < dimensao) {
 								if (matriz [nL] [nC] == 'O') {
 									vivos++;
@@ -605,7 +731,7 @@ void mostrarEsconder() {
 						}
 					}
 					
-					//Se houver pelo menos uma cÈlula viva vizinha, marca a cÈlula atual com '+'
+					//Se houver pelo menos uma c√©lula viva vizinha, marca a c√©lula atual com '+'
 					if (vivos > 0) {
 						matriz [linha] [coluna] = '+';
 					}
@@ -614,7 +740,7 @@ void mostrarEsconder() {
 		}
 	}
 	
-	//Se a opÁ„o de mostrar estiver desativada, remove os '+' e volta para '.'
+	//Se a op√ß√£o de mostrar estiver desativada, remove os '+' e volta para '.'
 	else {
 		for (int linha = 0; linha < dimensao; linha++) {
 			for (int coluna = 0; coluna < dimensao; coluna++) {
@@ -811,7 +937,7 @@ void processo() {
 void proximaGeracao() {
     gerarListaVivos();   // Atualiza pvivo com base na matriz
     gerarListaMortos();  // Cria lista de mortos vizinhos
-    gerarVivas();        // Calcula os vivos da prÛxima geraÁ„o
+    gerarVivas();        // Calcula os vivos da pr√≥xima gera√ß√£o
     atualizaMatrizDaLista();
     gerarListaVivos();   // Atualiza pvivo com base na matriz
     gerarListaMortos();  // Cria lista de mortos vizinhos
@@ -827,6 +953,3 @@ void proximaGeracao() {
 	totvivoprox = 0;
 }
 
-void recuperarGeracao() {
-	
-}
