@@ -1,6 +1,6 @@
 //JVIDA-6-KLRR-VIEW.cpp - Projeto Jogo da Vida
-//11/11/2025 - Grupo: KLRR
-//Kau� Bezerra Brito
+//25/11/2025 - Grupo: KLRR
+//Kaua Bezerra Brito
 //Liam Vedovato Lopes
 //Raul Kolaric
 //Rodrigo Ward Leite
@@ -9,7 +9,7 @@
 
 //Exibe o mapa atual
 void apresentarMapa() {
-	mostrarEsconder();			//Atualiza os '+' se a op��o "mostrar vizinhos" estiver ativada
+	mostrarEsconder();			//Atualiza os '+' se a opcao "mostrar vizinhos" estiver ativada
 	
 	printf("\n   ");
 	
@@ -57,7 +57,7 @@ void limparTela() {
 	system("cls");
 }
 
-//Exibe o menu principal e retorna a op��o escolhida
+//Exibe o menu principal e retorna a opcao escolhida
 char menu() {
 	do {
 		limparTela();
@@ -70,14 +70,13 @@ char menu() {
 		printf("| 5 - Apresentar as Listas                                            |\n");
 		printf("| 6 - Gravar uma geracao inicial                                      |\n");
 		printf("| 7 - Recuperar uma geracao inicial cadastrada                        |\n");
-		printf("| 8 - Limpar o cadastro de geracoes iniciais cadastradas (n geracoes) |\n");
-		printf("| 9 - Regras de evolucao das celulas                                  |\n");
+		printf("| 8 - Regras de evolucao das celulas                                  |\n");
 		printf("| 0 - Sair do programa                                                |\n");
 		printf("-----------------------------------------------------------------------\n");
 		printf("Opcao selecionada: ");
 		scanf("%c", &op);	
 		
-		if (op >= '0' && op <= '9') {
+		if (op >= '0' && op <= '8') {
 			break;	
 		}
 			

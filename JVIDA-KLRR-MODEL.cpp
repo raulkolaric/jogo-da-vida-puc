@@ -1,13 +1,13 @@
 //JVIDA-6-KLRR-MODEL.cpp - Projeto Jogo da Vida
-//11/11/2025 - Grupo: KLRR
-//Kau� Bezerra Brito
+//25/11/2025 - Grupo: KLRR
+//Kaua Bezerra Brito
 //Liam Vedovato Lopes
 //Raul Kolaric
 //Rodrigo Ward Leite
 
 #include "JVIDA-KLRR-MODEL.h"
 
-//Estrutura para representar uma c�lula
+//Estrutura para representar uma celula
 typedef struct cel {
 	int lin;
 	int col;
@@ -19,20 +19,20 @@ TipoCel *pvivo = NULL;
 TipoCel *pmorto = NULL;
 TipoCel *pvivoprox = NULL;
 
-//estrutura de celula para grava��o (nao precisa do next)
+//Estrutura de celula para gravacao (nao precisa do next)
 typedef struct c {
 	int lin, col;
 } Cel;
 
 typedef struct list {
 	int cont; 			//tamanho da lista
-	Cel L[MAXLIST];		//maxlist = tamanho maximo das listas (para grava��o)
+	Cel L[MAXLIST];		//maxlist = tamanho maximo das listas (para gravacao)
 } TipoLista;
 
 TipoLista Lvivo;
 
 struct arquivo {
 	TipoLista TL;
-} LConfig[MAXINIC];		//maxinic= qtd maxima de configura��es iniciais (para grava��o)
+} LConfig[MAXINIC];		//maxinic = qtd maxima de configuracoes iniciais (para gravacao)
 
 
